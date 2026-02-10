@@ -103,109 +103,108 @@ impl School {
 mod tests {
     use super::*;
 
+    fn create_school() -> School {
+        School::new(1, "Test School".to_string())
+    }
+
+    fn create_class(id: ClassId) -> Class {
+        Class::new(id, "Test Class".to_string(), "Test Description".to_string())
+    }
+
+    fn create_teacher(id: TeacherId) -> Teacher {
+        Teacher::new(id, "Test Teacher".to_string(), "Test Subject".to_string())
+    }
+
+    fn create_schedule(id: ScheduleId, class_id: ClassId) -> Schedule {
+        Schedule::new(id, "Test Schedule".to_string(), class_id)
+    }
+
     #[test]
     fn school_can_be_created() {
-        let school = School::new(1, "Test School".to_string());
+        let school = create_school();
         assert_eq!(school.id(), 1);
     }
 
     #[test]
     fn school_can_get_next_teacher_id() {
-        let mut school = School::new(1, "Test School".to_string());
+        let mut school = create_school();
         assert_eq!(school.get_next_teacher_id(), 1);
         assert_eq!(school.get_next_teacher_id(), 2);
     }
 
     #[test]
     fn school_can_get_next_class_id() {
-        let mut school = School::new(1, "Test School".to_string());
+        let mut school = create_school();
         assert_eq!(school.get_next_class_id(), 1);
         assert_eq!(school.get_next_class_id(), 2);
     }
 
     #[test]
     fn school_can_get_next_schedule_id() {
-        let mut school = School::new(1, "Test School".to_string());
+        let mut school = create_school();
         assert_eq!(school.get_next_schedule_id(), 1);
         assert_eq!(school.get_next_schedule_id(), 2);
     }
 
     #[test]
     fn class_can_be_created() {
-        let mut school = School::new(1, "Test School".to_string());
-        let class_id = school.get_next_class_id();
-        let class = Class::new(
-            class_id,
-            "Test Class".to_string(),
-            "Test Description".to_string(),
-        );
+        let mut school = create_school();
+        let class = create_class(school.get_next_class_id());
         let expected_class = class.clone();
         school.add_class(class);
-        assert_eq!(school.get_class(class_id), Some(&expected_class));
+        assert_eq!(school.get_class(expected_class.id()), Some(&expected_class));
     }
 
     #[test]
-    fn class_can_be_get_by_id() {
-        let mut school = School::new(1, "Test School".to_string());
-        let class_id = school.get_next_class_id();
-        let class = Class::new(
-            class_id,
-            "Test Class".to_string(),
-            "Test Description".to_string(),
-        );
+    fn class_can_be_retrieved_by_id() {
+        let mut school = create_school();
+        let class = create_class(school.get_next_class_id());
         school.add_class(class.clone());
-        assert_eq!(school.get_class(class_id), Some(&class));
+        assert_eq!(school.get_class(class.id()), Some(&class));
     }
 
     #[test]
     fn class_can_be_removed() {
-        let mut school = School::new(1, "Test School".to_string());
-        let class_id = school.get_next_class_id();
-        let class = Class::new(
-            class_id,
-            "Test Class".to_string(),
-            "Test Description".to_string(),
-        );
+        let mut school = create_school();
+        let class = create_class(school.get_next_class_id());
         school.add_class(class.clone());
-        school.remove_class(class_id);
-        assert_eq!(school.get_class(class_id), None);
+        school.remove_class(class.id());
+        assert_eq!(school.get_class(class.id()), None);
     }
 
     #[test]
     fn teacher_can_be_created() {
-        let mut school = School::new(1, "Test School".to_string());
-        let teacher_id = school.get_next_teacher_id();
-        let teacher = Teacher::new(
-            teacher_id,
-            "Test Teacher".to_string(),
-            "Test Subject".to_string(),
-        );
+        let mut school = create_school();
+        let teacher = create_teacher(school.get_next_teacher_id());
         let expected_teacher = teacher.clone();
         school.add_teacher(teacher);
-        assert_eq!(school.get_teacher(teacher_id), Some(&expected_teacher));
+        assert_eq!(school.get_teacher(expected_teacher.id()), Some(&expected_teacher));
     }
 
     #[test]
-    fn teacher_can_be_get_by_id() {
-        let mut school = School::new(1, "Test School".to_string());
-        let teacher_id = school.get_next_teacher_id();
-        let teacher = Teacher::new(
-            teacher_id,
-            "Test Teacher".to_string(),
-            "Test Subject".to_string(),
-        );
+    fn teacher_can_be_retrieved_by_id() {
+        let mut school = create_school();
+        let teacher = create_teacher(school.get_next_teacher_id());
         let expected_teacher = teacher.clone();
         school.add_teacher(teacher);
-        assert_eq!(school.get_teacher(teacher_id), Some(&expected_teacher));
+        assert_eq!(school.get_teacher(expected_teacher.id()), Some(&expected_teacher));
+    }
+
+    #[test]
+    fn teacher_can_be_removed() {
+        let mut school = create_school();
+        let teacher = create_teacher(school.get_next_teacher_id());
+        school.add_teacher(teacher.clone());
+        school.remove_teacher(teacher.id());
+        assert_eq!(school.get_teacher(teacher.id()), None);
     }
 
     #[test]
     fn schedule_can_be_created() {
-        let mut school = School::new(1, "Test School".to_string());
-        let schedule_id = school.get_next_schedule_id();
-        let schedule = Schedule::new(schedule_id, "Test Schedule".to_string(), 1);
+        let mut school = create_school();
+        let schedule = create_schedule(school.get_next_schedule_id(), 1);
         let expected_schedule = schedule.clone();
         school.add_schedule(schedule);
-        assert_eq!(school.get_schedule(schedule_id), Some(&expected_schedule));
+        assert_eq!(school.get_schedule(expected_schedule.id()), Some(&expected_schedule));
     }
 }
