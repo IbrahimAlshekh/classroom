@@ -102,3 +102,6 @@ cargo build
 ```bash
 cargo test
 ```
+
+# License
+MIT License © 2026 
