@@ -23,7 +23,7 @@ impl Schedule {
         &self.name
     }
 
-    pub fn get_class_id(&self) -> ClassId {
+    pub fn class_id(&self) -> ClassId {
         self.class_id
     }
 }

@@ -40,33 +40,29 @@ impl School {
         &self.name
     }
 
-    pub fn get_next_teacher_id(&mut self) -> TeacherId {
+    pub fn next_teacher_id(&mut self) -> TeacherId {
         let current_id = self.next_teacher_id;
         self.next_teacher_id += 1;
         current_id
     }
 
-    pub fn get_next_class_id(&mut self) -> ClassId {
+    pub fn next_class_id(&mut self) -> ClassId {
         let current_id = self.next_class_id;
         self.next_class_id += 1;
         current_id
     }
 
-    pub fn get_next_schedule_id(&mut self) -> ScheduleId {
+    pub fn next_schedule_id(&mut self) -> ScheduleId {
         let current_id = self.next_schedule_id;
         self.next_schedule_id += 1;
         current_id
-    }
-
-    pub fn next_class_id(&self) -> ClassId {
-        self.next_class_id
     }
 
     pub fn add_teacher(&mut self, teacher: Teacher) {
         self.teachers.insert(teacher.id(), teacher);
     }
 
-    pub fn get_teacher(&self, id: TeacherId) -> Option<&Teacher> {
+    pub fn teacher(&self, id: TeacherId) -> Option<&Teacher> {
         self.teachers.get(&id)
     }
 
@@ -78,7 +74,7 @@ impl School {
         self.classes.insert(class.id(), class);
     }
 
-    pub fn get_class(&self, id: ClassId) -> Option<&Class> {
+    pub fn class(&self, id: ClassId) -> Option<&Class> {
         self.classes.get(&id)
     }
 
@@ -90,7 +86,7 @@ impl School {
         self.schedules.insert(schedule.id(), schedule);
     }
 
-    pub fn get_schedule(&self, id: ScheduleId) -> Option<&Schedule> {
+    pub fn schedule(&self, id: ScheduleId) -> Option<&Schedule> {
         self.schedules.get(&id)
     }
 
@@ -126,60 +122,60 @@ mod tests {
     }
 
     #[test]
-    fn school_can_get_next_teacher_id() {
+    fn school_can_next_teacher_id() {
         let mut school = create_school();
-        assert_eq!(school.get_next_teacher_id(), 1);
-        assert_eq!(school.get_next_teacher_id(), 2);
+        assert_eq!(school.next_teacher_id(), 1);
+        assert_eq!(school.next_teacher_id(), 2);
     }
 
     #[test]
-    fn school_can_get_next_class_id() {
+    fn school_can_next_class_id() {
         let mut school = create_school();
-        assert_eq!(school.get_next_class_id(), 1);
-        assert_eq!(school.get_next_class_id(), 2);
+        assert_eq!(school.next_class_id(), 1);
+        assert_eq!(school.next_class_id(), 2);
     }
 
     #[test]
-    fn school_can_get_next_schedule_id() {
+    fn school_can_next_schedule_id() {
         let mut school = create_school();
-        assert_eq!(school.get_next_schedule_id(), 1);
-        assert_eq!(school.get_next_schedule_id(), 2);
+        assert_eq!(school.next_schedule_id(), 1);
+        assert_eq!(school.next_schedule_id(), 2);
     }
 
     #[test]
     fn class_can_be_created() {
         let mut school = create_school();
-        let class = create_class(school.get_next_class_id());
+        let class = create_class(school.next_class_id());
         let expected_class = class.clone();
         school.add_class(class);
-        assert_eq!(school.get_class(expected_class.id()), Some(&expected_class));
+        assert_eq!(school.class(expected_class.id()), Some(&expected_class));
     }
 
     #[test]
     fn class_can_be_retrieved_by_id() {
         let mut school = create_school();
-        let class = create_class(school.get_next_class_id());
+        let class = create_class(school.next_class_id());
         school.add_class(class.clone());
-        assert_eq!(school.get_class(class.id()), Some(&class));
+        assert_eq!(school.class(class.id()), Some(&class));
     }
 
     #[test]
     fn class_can_be_removed() {
         let mut school = create_school();
-        let class = create_class(school.get_next_class_id());
+        let class = create_class(school.next_class_id());
         school.add_class(class.clone());
         school.remove_class(class.id());
-        assert_eq!(school.get_class(class.id()), None);
+        assert_eq!(school.class(class.id()), None);
     }
 
     #[test]
     fn teacher_can_be_created() {
         let mut school = create_school();
-        let teacher = create_teacher(school.get_next_teacher_id());
+        let teacher = create_teacher(school.next_teacher_id());
         let expected_teacher = teacher.clone();
         school.add_teacher(teacher);
         assert_eq!(
-            school.get_teacher(expected_teacher.id()),
+            school.teacher(expected_teacher.id()),
             Some(&expected_teacher)
         );
     }
@@ -187,11 +183,11 @@ mod tests {
     #[test]
     fn teacher_can_be_retrieved_by_id() {
         let mut school = create_school();
-        let teacher = create_teacher(school.get_next_teacher_id());
+        let teacher = create_teacher(school.next_teacher_id());
         let expected_teacher = teacher.clone();
         school.add_teacher(teacher);
         assert_eq!(
-            school.get_teacher(expected_teacher.id()),
+            school.teacher(expected_teacher.id()),
             Some(&expected_teacher)
         );
     }
@@ -199,20 +195,20 @@ mod tests {
     #[test]
     fn teacher_can_be_removed() {
         let mut school = create_school();
-        let teacher = create_teacher(school.get_next_teacher_id());
+        let teacher = create_teacher(school.next_teacher_id());
         school.add_teacher(teacher.clone());
         school.remove_teacher(teacher.id());
-        assert_eq!(school.get_teacher(teacher.id()), None);
+        assert_eq!(school.teacher(teacher.id()), None);
     }
 
     #[test]
     fn schedule_can_be_created() {
         let mut school = create_school();
-        let schedule = create_schedule(school.get_next_schedule_id(), 1);
+        let schedule = create_schedule(school.next_schedule_id(), 1);
         let expected_schedule = schedule.clone();
         school.add_schedule(schedule);
         assert_eq!(
-            school.get_schedule(expected_schedule.id()),
+            school.schedule(expected_schedule.id()),
             Some(&expected_schedule)
         );
     }
