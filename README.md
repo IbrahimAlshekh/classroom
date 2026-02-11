@@ -16,7 +16,7 @@ The goal is to (learn rust ;) make school schedule management easier and more au
 
 ## Current Status
 
-The project is actively being developed. I've got the core data models working nicely - teachers, classes, and schedules 
+The project is actively being developed. I've got the core data models working nicely – teachers, classes, and schedules 
 are all in place with proper serialization support. Right now I'm working on the CLI interface and data import/export
 features. The foundation is solid, and I'm building out the practical features that'll make this tool actually 
 useful to be used.
@@ -72,14 +72,14 @@ We're planning to add a web-based UI using the Dioxus framework. This will make 
 - Real-time conflict detection
 - Export and share schedules
 
-The CLI will be add just during the initial development phase to allow testing and experimentation,
+The CLI will be added just during the initial development phase to allow testing and experimentation,
 but the Dioxus UI will provide a more visual way to work with schedules.
 
 ## TODO
 
 - [ ] Implement CLI interface with command-line arguments
 - [ ] Add schedule generation algorithm
-- [ ] Support importing data from CSV/JSON files
+- [ ] Support for importing data from CSV/JSON files
 - [ ] Export schedules to Excel format (using rust_xlsxwriter)
 - [ ] Add conflict detection (teacher double-booking, room conflicts)
 - [ ] Implement time slot management
