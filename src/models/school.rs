@@ -19,7 +19,7 @@ pub struct School {
 }
 
 impl School {
-    fn new(id: SchoolId, name: String) -> Self {
+    pub fn new(id: SchoolId, name: String) -> Self {
         Self {
             id,
             name,
@@ -36,7 +36,7 @@ impl School {
         self.id
     }
 
-    pub fn name(&self) -> &String {
+    pub fn name(&self) -> &str {
         &self.name
     }
 
@@ -62,39 +62,39 @@ impl School {
         self.next_class_id
     }
 
-    fn add_teacher(&mut self, teacher: Teacher) {
+    pub fn add_teacher(&mut self, teacher: Teacher) {
         self.teachers.insert(teacher.id(), teacher);
     }
 
-    fn get_teacher(&self, id: TeacherId) -> Option<&Teacher> {
+    pub fn get_teacher(&self, id: TeacherId) -> Option<&Teacher> {
         self.teachers.get(&id)
     }
 
-    fn remove_teacher(&mut self, id: TeacherId) {
+    pub fn remove_teacher(&mut self, id: TeacherId) {
         self.teachers.shift_remove(&id);
     }
 
-    fn add_class(&mut self, class: Class) {
+    pub fn add_class(&mut self, class: Class) {
         self.classes.insert(class.id(), class);
     }
 
-    fn get_class(&self, id: ClassId) -> Option<&Class> {
+    pub fn get_class(&self, id: ClassId) -> Option<&Class> {
         self.classes.get(&id)
     }
 
-    fn remove_class(&mut self, id: ClassId) {
+    pub fn remove_class(&mut self, id: ClassId) {
         self.classes.shift_remove(&id);
     }
 
-    fn add_schedule(&mut self, schedule: Schedule) {
+    pub fn add_schedule(&mut self, schedule: Schedule) {
         self.schedules.insert(schedule.id(), schedule);
     }
 
-    fn get_schedule(&self, id: ScheduleId) -> Option<&Schedule> {
+    pub fn get_schedule(&self, id: ScheduleId) -> Option<&Schedule> {
         self.schedules.get(&id)
     }
 
-    fn remove_schedule(&mut self, id: ScheduleId) {
+    pub fn remove_schedule(&mut self, id: ScheduleId) {
         self.schedules.shift_remove(&id);
     }
 }
@@ -178,7 +178,10 @@ mod tests {
         let teacher = create_teacher(school.get_next_teacher_id());
         let expected_teacher = teacher.clone();
         school.add_teacher(teacher);
-        assert_eq!(school.get_teacher(expected_teacher.id()), Some(&expected_teacher));
+        assert_eq!(
+            school.get_teacher(expected_teacher.id()),
+            Some(&expected_teacher)
+        );
     }
 
     #[test]
@@ -187,7 +190,10 @@ mod tests {
         let teacher = create_teacher(school.get_next_teacher_id());
         let expected_teacher = teacher.clone();
         school.add_teacher(teacher);
-        assert_eq!(school.get_teacher(expected_teacher.id()), Some(&expected_teacher));
+        assert_eq!(
+            school.get_teacher(expected_teacher.id()),
+            Some(&expected_teacher)
+        );
     }
 
     #[test]
@@ -205,6 +211,9 @@ mod tests {
         let schedule = create_schedule(school.get_next_schedule_id(), 1);
         let expected_schedule = schedule.clone();
         school.add_schedule(schedule);
-        assert_eq!(school.get_schedule(expected_schedule.id()), Some(&expected_schedule));
+        assert_eq!(
+            school.get_schedule(expected_schedule.id()),
+            Some(&expected_schedule)
+        );
     }
 }

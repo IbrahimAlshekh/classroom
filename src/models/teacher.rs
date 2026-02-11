@@ -22,11 +22,11 @@ impl Teacher {
         self.id
     }
 
-    pub fn name(&self) -> &String {
+    pub fn name(&self) -> &str {
         &self.name
     }
 
-    pub fn subject_id(&self) -> &String {
+    pub fn subject_id(&self) -> &str {
         &self.subject_id
     }
 }

@@ -2,11 +2,11 @@ use serde::{Deserialize, Serialize};
 
 pub type ClassId = u32;
 
-#[derive(Debug, Clone, PartialEq,Serialize,Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Class {
     id: ClassId,
     name: String,
-    description: String
+    description: String,
 }
 
 impl Class {
@@ -14,7 +14,7 @@ impl Class {
         Self {
             id,
             name,
-            description
+            description,
         }
     }
 
@@ -22,11 +22,11 @@ impl Class {
         self.id
     }
 
-    pub fn name(&self) -> &String {
+    pub fn name(&self) -> &str {
         &self.name
     }
 
-    pub fn description(&self) -> &String {
+    pub fn description(&self) -> &str {
         &self.description
     }
 }

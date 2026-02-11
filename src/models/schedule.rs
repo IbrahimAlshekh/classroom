@@ -1,9 +1,9 @@
-use serde::{Deserialize, Serialize};
 use crate::models::class::ClassId;
+use serde::{Deserialize, Serialize};
 
 pub type ScheduleId = u32;
 
-#[derive(Debug, Clone, PartialEq,Serialize,Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Schedule {
     id: ScheduleId,
     name: String,
@@ -19,11 +19,11 @@ impl Schedule {
         self.id
     }
 
-    pub fn name(&self) -> &String {
+    pub fn name(&self) -> &str {
         &self.name
     }
 
-    fn get_class_id(&self) -> ClassId {
+    pub fn get_class_id(&self) -> ClassId {
         self.class_id
     }
 }
