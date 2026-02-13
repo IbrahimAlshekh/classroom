@@ -1,8 +1,9 @@
 use crate::models::class::{Class, ClassId};
 use crate::models::schedule::{Schedule, ScheduleId};
 use crate::models::teacher::{Teacher, TeacherId};
-use indexmap::IndexMap;
+use indexmap::{IndexMap, };
 use serde::{Deserialize, Serialize};
+use crate::models::{Subject, SubjectId};
 
 pub type SchoolId = i32;
 
@@ -13,9 +14,11 @@ pub struct School {
     teachers: IndexMap<TeacherId, Teacher>,
     classes: IndexMap<ClassId, Class>,
     schedules: IndexMap<ScheduleId, Schedule>,
+    subjects: IndexMap<SubjectId, Subject>,
     next_teacher_id: TeacherId,
     next_class_id: ClassId,
     next_schedule_id: ScheduleId,
+    next_subject_id: SubjectId,
 }
 
 impl School {
@@ -26,9 +29,11 @@ impl School {
             teachers: IndexMap::new(),
             classes: IndexMap::new(),
             schedules: IndexMap::new(),
+            subjects: IndexMap::new(),
             next_teacher_id: 1,
             next_class_id: 1,
             next_schedule_id: 1,
+            next_subject_id: 1,
         }
     }
 
@@ -58,6 +63,12 @@ impl School {
         current_id
     }
 
+    pub fn next_subject_id(&mut self) -> SubjectId {
+        let current_id = self.next_subject_id;
+        self.next_subject_id += 1;
+        current_id
+    }
+
     pub fn add_teacher(&mut self, teacher: Teacher) {
         self.teachers.insert(teacher.id(), teacher);
     }
@@ -70,28 +81,40 @@ impl School {
         self.teachers.shift_remove(&id);
     }
 
-    pub fn add_class(&mut self, class: Class) {
-        self.classes.insert(class.id(), class);
-    }
-
     pub fn class(&self, id: ClassId) -> Option<&Class> {
         self.classes.get(&id)
+    }
+
+    pub fn add_class(&mut self, class: Class) {
+        self.classes.insert(class.id(), class);
     }
 
     pub fn remove_class(&mut self, id: ClassId) {
         self.classes.shift_remove(&id);
     }
 
-    pub fn add_schedule(&mut self, schedule: Schedule) {
-        self.schedules.insert(schedule.id(), schedule);
-    }
-
     pub fn schedule(&self, id: ScheduleId) -> Option<&Schedule> {
         self.schedules.get(&id)
     }
 
+    pub fn add_schedule(&mut self, schedule: Schedule) {
+        self.schedules.insert(schedule.id(), schedule);
+    }
+
     pub fn remove_schedule(&mut self, id: ScheduleId) {
         self.schedules.shift_remove(&id);
+    }
+
+    pub fn subject(&self, id: SubjectId) -> Option<&Subject> {
+        self.subjects.get(&id)
+    }
+
+    pub fn add_subject(&mut self, subject: Subject) {
+        self.subjects.insert(subject.id(), subject);
+    }
+
+    pub fn remove_subject(&mut self, id: SubjectId) {
+        self.subjects.shift_remove(&id);
     }
 }
 
@@ -108,7 +131,7 @@ mod tests {
     }
 
     fn create_teacher(id: TeacherId) -> Teacher {
-        Teacher::new(id, "Test Teacher".to_string(), "Test Subject".to_string())
+        Teacher::new(id, "Test Teacher".to_string(), 1)
     }
 
     fn create_schedule(id: ScheduleId, class_id: ClassId) -> Schedule {

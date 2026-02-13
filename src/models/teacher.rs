@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use crate::models::SubjectId;
 
 pub type TeacherId = u32;
 
@@ -6,11 +7,11 @@ pub type TeacherId = u32;
 pub struct Teacher {
     id: TeacherId,
     name: String,
-    subject_id: String,
+    subject_id: SubjectId,
 }
 
 impl Teacher {
-    pub fn new(id: TeacherId, name: String, subject_id: String) -> Self {
+    pub fn new(id: TeacherId, name: String, subject_id: SubjectId) -> Self {
         Self {
             id,
             name,
@@ -26,7 +27,7 @@ impl Teacher {
         &self.name
     }
 
-    pub fn subject_id(&self) -> &str {
+    pub fn subject_id(&self) -> &SubjectId {
         &self.subject_id
     }
 }

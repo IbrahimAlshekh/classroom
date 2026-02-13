@@ -1,4 +1,6 @@
+use indexmap::IndexSet;
 use serde::{Deserialize, Serialize};
+use crate::models::SubjectId;
 
 pub type ClassId = u32;
 
@@ -7,6 +9,7 @@ pub struct Class {
     id: ClassId,
     name: String,
     description: String,
+    subjects: IndexSet<SubjectId>,
 }
 
 impl Class {
@@ -15,6 +18,7 @@ impl Class {
             id,
             name,
             description,
+            subjects: IndexSet::new(),
         }
     }
 
@@ -28,5 +32,21 @@ impl Class {
 
     pub fn description(&self) -> &str {
         &self.description
+    }
+
+    pub fn subject_ids(&self) -> &IndexSet<SubjectId> {
+        &self.subjects
+    }
+
+    pub fn add_subjects(&mut self, subjects: IndexSet<SubjectId>) {
+        self.subjects.extend(subjects);
+    }
+
+    fn add_subject(&mut self, subject_id: SubjectId) {
+        self.subjects.insert(subject_id);
+    }
+
+    fn remove_subject(&mut self, subject_id: SubjectId) {
+        self.subjects.retain(|id| id != &subject_id);
     }
 }
