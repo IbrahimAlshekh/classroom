@@ -14,6 +14,23 @@ to create, manage, and organize:
 
 The goal is to (learn rust ;) make school schedule management easier and more automated.
 
+## Business rules
+
+The application follows these business rules:
+- The school can have multiple rooms, classes, teachers, and subjects
+- The school can have one single schedule for all classes
+- The schedule is generated when the school runs the generator and generates a new schedule for each class
+- The schedule is generated based on the availability of teachers and rooms
+- The schedule includes all classes and their time slots.
+- It's not allowed to have overlapping time slots.
+- Each teacher can teach only one subject at a time
+- Each teacher can optionally teach other subjects besides their primary subject when they're available
+- Each teacher can teach multiple classes, but each class can only be taught by one teacher at a time
+- Each class has one primary teacher which is responsible for managing the class
+- Rooms should be reserved for single class only
+- A class should be assigned to single room at a time
+- A class could be assigned to an other room if it's available
+
 ## Current Status
 
 The project is actively being developed. I've got the core data models working nicely – teachers, classes, and schedules 
