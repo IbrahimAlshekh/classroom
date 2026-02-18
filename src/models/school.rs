@@ -81,36 +81,36 @@ impl School {
         self.teachers.shift_remove(&id);
     }
 
-    pub fn class(&self, id: ClassId) -> Option<&Class> {
-        self.classes.get(&id)
-    }
-
     pub fn add_class(&mut self, class: Class) {
         self.classes.insert(class.id(), class);
+    }
+
+    pub fn class(&self, id: ClassId) -> Option<&Class> {
+        self.classes.get(&id)
     }
 
     pub fn remove_class(&mut self, id: ClassId) {
         self.classes.shift_remove(&id);
     }
 
-    pub fn schedule(&self, id: ScheduleId) -> Option<&Schedule> {
-        self.schedules.get(&id)
-    }
-
     pub fn add_schedule(&mut self, schedule: Schedule) {
         self.schedules.insert(schedule.id(), schedule);
+    }
+
+    pub fn schedule(&self, id: ScheduleId) -> Option<&Schedule> {
+        self.schedules.get(&id)
     }
 
     pub fn remove_schedule(&mut self, id: ScheduleId) {
         self.schedules.shift_remove(&id);
     }
 
-    pub fn subject(&self, id: SubjectId) -> Option<&Subject> {
-        self.subjects.get(&id)
-    }
-
     pub fn add_subject(&mut self, subject: Subject) {
         self.subjects.insert(subject.id(), subject);
+    }
+
+    pub fn subject(&self, id: SubjectId) -> Option<&Subject> {
+        self.subjects.get(&id)
     }
 
     pub fn remove_subject(&mut self, id: SubjectId) {
