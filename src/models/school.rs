@@ -45,19 +45,19 @@ impl School {
         &self.name
     }
 
-    pub fn next_teacher_id(&mut self) -> TeacherId {
+    fn next_teacher_id(&mut self) -> TeacherId {
         let current_id = self.next_teacher_id;
         self.next_teacher_id += 1;
         current_id
     }
 
-    pub fn next_class_id(&mut self) -> ClassId {
+    fn next_class_id(&mut self) -> ClassId {
         let current_id = self.next_class_id;
         self.next_class_id += 1;
         current_id
     }
 
-    pub fn next_schedule_id(&mut self) -> ScheduleId {
+    fn next_schedule_id(&mut self) -> ScheduleId {
         let current_id = self.next_schedule_id;
         self.next_schedule_id += 1;
         current_id
