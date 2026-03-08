@@ -1,5 +1,7 @@
+use indexmap::IndexSet;
 use crate::models::class::ClassId;
 use serde::{Deserialize, Serialize};
+use crate::models::TeacherId;
 
 pub type SubjectId = u32;
 
@@ -7,11 +9,18 @@ pub type SubjectId = u32;
 pub struct Subject {
     id: SubjectId,
     name: String,
+    teacher_id: TeacherId,
+    subteacher_ids: Option<IndexSet<TeacherId>>,
 }
 
 impl Subject {
-    pub fn new(id: SubjectId, name: String, class_id: ClassId) -> Self {
-        Self { id, name }
+    pub fn new(id: SubjectId, name: String, teacher_id: TeacherId) -> Self {
+        Self {
+            id,
+            name,
+            teacher_id,
+            subteacher_ids: None
+        }
     }
 
     pub fn id(&self) -> SubjectId {
@@ -20,5 +29,20 @@ impl Subject {
 
     pub fn name(&self) -> &str {
         &self.name
+    }
+
+    pub fn teacher_id(&self) -> TeacherId {
+        self.teacher_id
+    }
+
+    pub fn subteacher_ids(&self) -> Option<&IndexSet<TeacherId>> {
+        self.subteacher_ids.as_ref()
+    }
+
+    pub fn add_subteacher_id(&mut self, teacher_id: TeacherId) {
+        if(self.subteacher_ids.is_none()) {
+            self.subteacher_ids = Some(IndexSet::new());
+        }
+        self.subteacher_ids.as_mut().unwrap().insert(teacher_id);
     }
 }
