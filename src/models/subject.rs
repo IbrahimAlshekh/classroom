@@ -1,5 +1,4 @@
 use indexmap::IndexSet;
-use crate::models::class::ClassId;
 use serde::{Deserialize, Serialize};
 use crate::models::TeacherId;
 
