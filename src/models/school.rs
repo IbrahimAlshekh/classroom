@@ -1,9 +1,8 @@
 use crate::models::class::{Class, ClassId};
-use crate::models::schedule::{Schedule, ScheduleId};
 use crate::models::teacher::{Teacher, TeacherId};
 use indexmap::{IndexMap, };
 use serde::{Deserialize, Serialize};
-use crate::models::{Subject, SubjectId};
+use crate::models::{Subject, SubjectId, TimeSlot, TimeSlotId};
 
 pub type SchoolId = i32;
 
@@ -13,11 +12,11 @@ pub struct School {
     name: String,
     teachers: IndexMap<TeacherId, Teacher>,
     classes: IndexMap<ClassId, Class>,
-    schedules: IndexMap<ScheduleId, Schedule>,
     subjects: IndexMap<SubjectId, Subject>,
+    timeslots: IndexMap<TimeSlotId, TimeSlot>,
     next_teacher_id: TeacherId,
     next_class_id: ClassId,
-    next_schedule_id: ScheduleId,
+    next_timeslot_id: TimeSlotId,
     next_subject_id: SubjectId,
 }
 
@@ -28,11 +27,11 @@ impl School {
             name,
             teachers: IndexMap::new(),
             classes: IndexMap::new(),
-            schedules: IndexMap::new(),
+            timeslots: IndexMap::new(),
             subjects: IndexMap::new(),
             next_teacher_id: 1,
             next_class_id: 1,
-            next_schedule_id: 1,
+            next_timeslot_id: 1,
             next_subject_id: 1,
         }
     }
@@ -57,9 +56,9 @@ impl School {
         current_id
     }
 
-    fn next_schedule_id(&mut self) -> ScheduleId {
-        let current_id = self.next_schedule_id;
-        self.next_schedule_id += 1;
+    fn next_timeslot_id(&mut self) -> TimeSlotId {
+        let current_id = self.next_timeslot_id;
+        self.next_timeslot_id += 1;
         current_id
     }
 
@@ -93,18 +92,6 @@ impl School {
         self.classes.shift_remove(&id);
     }
 
-    pub fn add_schedule(&mut self, schedule: Schedule) {
-        self.schedules.insert(schedule.id(), schedule);
-    }
-
-    pub fn schedule(&self, id: ScheduleId) -> Option<&Schedule> {
-        self.schedules.get(&id)
-    }
-
-    pub fn remove_schedule(&mut self, id: ScheduleId) {
-        self.schedules.shift_remove(&id);
-    }
-
     pub fn add_subject(&mut self, subject: Subject) {
         self.subjects.insert(subject.id(), subject);
     }
@@ -134,10 +121,6 @@ mod tests {
         Teacher::new(id, "Test Teacher".to_string(), 1)
     }
 
-    fn create_schedule(id: ScheduleId, class_id: ClassId) -> Schedule {
-        Schedule::new(id, "Test Schedule".to_string(), class_id)
-    }
-
     #[test]
     fn school_can_be_created() {
         let school = create_school();
@@ -156,13 +139,6 @@ mod tests {
         let mut school = create_school();
         assert_eq!(school.next_class_id(), 1);
         assert_eq!(school.next_class_id(), 2);
-    }
-
-    #[test]
-    fn school_can_next_schedule_id() {
-        let mut school = create_school();
-        assert_eq!(school.next_schedule_id(), 1);
-        assert_eq!(school.next_schedule_id(), 2);
     }
 
     #[test]
@@ -222,17 +198,5 @@ mod tests {
         school.add_teacher(teacher.clone());
         school.remove_teacher(teacher.id());
         assert_eq!(school.teacher(teacher.id()), None);
-    }
-
-    #[test]
-    fn schedule_can_be_created() {
-        let mut school = create_school();
-        let schedule = create_schedule(school.next_schedule_id(), 1);
-        let expected_schedule = schedule.clone();
-        school.add_schedule(schedule);
-        assert_eq!(
-            school.schedule(expected_schedule.id()),
-            Some(&expected_schedule)
-        );
     }
 }
