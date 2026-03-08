@@ -9,3 +9,5 @@ indexmap = {version = "2.13.0", features = ["serde"]}
 rust_xlsxwriter = "0.93.0"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.149"
+chrono = {version = "0.4.44", features = ["serde"]}
+thiserror = "2.0.18"
