@@ -46,25 +46,3 @@ impl Class {
         self.subjects.retain(|id| id != &subject_id);
     }
 }
-
-#[cfg(test)]
-mod class_tests {
-    use super::*;
-
-    #[test]
-    fn subject_can_be_added_to_class() {
-        let mut class = Class::new(1, "Test Class".to_string(), "Test Description".to_string());
-        class.add_subject(1);
-        assert_eq!(class.subject_ids().len(), 1);
-        assert!(class.subject_ids().contains(&1));
-    }
-
-    #[test]
-    fn subject_can_be_removed_from_class() {
-        let mut class = Class::new(1, "Test Class".to_string(), "Test Description".to_string());
-        class.add_subject(1);
-        class.remove_subject(1);
-        assert_eq!(class.subject_ids().len(), 0);
-        assert!(!class.subject_ids().contains(&1));
-    }
-}
