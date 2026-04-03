@@ -4,7 +4,8 @@ use indexmap::{IndexMap, };
 use serde::{Deserialize, Serialize};
 use crate::models::{Subject, SubjectId, TimeSlot, TimeSlotId};
 
-pub type SchoolId = i32;
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub struct  SchoolId(pub i32);
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct School {
@@ -29,10 +30,10 @@ impl School {
             classes: IndexMap::new(),
             timeslots: IndexMap::new(),
             subjects: IndexMap::new(),
-            next_teacher_id: 1,
-            next_class_id: 1,
-            next_timeslot_id: 1,
-            next_subject_id: 1,
+            next_teacher_id: TeacherId(1),
+            next_class_id: ClassId(1),
+            next_timeslot_id: TimeSlotId(1),
+            next_subject_id: SubjectId(1),
         }
     }
 
@@ -46,25 +47,25 @@ impl School {
 
     fn next_teacher_id(&mut self) -> TeacherId {
         let current_id = self.next_teacher_id;
-        self.next_teacher_id += 1;
+        self.next_teacher_id.0 += 1;
         current_id
     }
 
     fn next_class_id(&mut self) -> ClassId {
         let current_id = self.next_class_id;
-        self.next_class_id += 1;
+        self.next_class_id.0 += 1;
         current_id
     }
 
     fn next_timeslot_id(&mut self) -> TimeSlotId {
         let current_id = self.next_timeslot_id;
-        self.next_timeslot_id += 1;
+        self.next_timeslot_id.0 += 1;
         current_id
     }
 
     pub fn next_subject_id(&mut self) -> SubjectId {
         let current_id = self.next_subject_id;
-        self.next_subject_id += 1;
+        self.next_subject_id.0 += 1;
         current_id
     }
 

@@ -2,7 +2,8 @@ use indexmap::IndexSet;
 use serde::{Deserialize, Serialize};
 use crate::models::SubjectId;
 
-pub type ClassId = u32;
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub struct  ClassId(pub u32);
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Class {

@@ -2,7 +2,8 @@ use indexmap::IndexSet;
 use serde::{Deserialize, Serialize};
 use crate::models::TeacherId;
 
-pub type SubjectId = u32;
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub struct  SubjectId(pub u32);
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Subject {
@@ -39,7 +40,7 @@ impl Subject {
     }
 
     pub fn add_subteacher_id(&mut self, teacher_id: TeacherId) {
-        if(self.subteacher_ids.is_none()) {
+        if self.subteacher_ids.is_none() {
             self.subteacher_ids = Some(IndexSet::new());
         }
         self.subteacher_ids.as_mut().unwrap().insert(teacher_id);

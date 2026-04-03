@@ -3,7 +3,8 @@ use serde::{Deserialize, Serialize};
 use crate::models::{ClassId, SubjectId};
 use crate::models::week_number::WeekNumber;
 
-pub type TimeSlotId = u32;
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub struct  TimeSlotId(pub u32);
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum Weekday {

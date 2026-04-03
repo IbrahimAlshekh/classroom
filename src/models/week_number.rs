@@ -3,11 +3,11 @@ use serde::{Deserialize, Serialize};
 use crate::models::error::DomainError;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct WeekNumber(u8);
+pub struct WeekNumber(pub u8);
 
 impl WeekNumber {
     pub fn new(week_number: u8) -> Result<Self, DomainError> {
-        if(week_number < 1 || week_number > 52){
+        if week_number < 1 || week_number > 52 {
             return Err(DomainError::InvalidWeekNumber);
         }
         Ok(Self(week_number))

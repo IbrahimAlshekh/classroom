@@ -1,7 +1,8 @@
 use serde::{Deserialize, Serialize};
 use crate::models::SubjectId;
 
-pub type TeacherId = u32;
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub struct  TeacherId(pub u32);
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Teacher {
