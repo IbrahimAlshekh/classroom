@@ -1,11 +1,11 @@
 # Classroom Schedule Generator
 
-A simple Rust CLI tool for generating school schedules. This project helps schools organize their teachers, classes, 
+A simple Rust CLI tool for generating school schedules. This project helps schools organize their teachers, classes,
 and schedules in a structured way.
 
 ## Purpose
 
-This application is designed to help schools manage and generate schedules. It provides a command-line interface 
+This application is designed to help schools manage and generate schedules. It provides a command-line interface
 to create, manage, and organize:
 
 - Teachers and their subjects
@@ -33,9 +33,9 @@ The application follows these business rules:
 
 ## Current Status
 
-The project is actively being developed. I've got the core data models working nicely – teachers, classes, and schedules 
+The project is actively being developed. I've got the core data models working nicely – teachers, classes, and schedules
 are all in place with proper serialization support. Right now I'm working on the CLI interface and data import/export
-features. The foundation is solid, and I'm building out the practical features that'll make this tool actually 
+features. The foundation is solid, and I'm building out the practical features that'll make this tool actually
 useful to be used.
 
 ## Features
@@ -121,4 +121,4 @@ cargo test
 ```
 
 # License
-MIT License © 2026 
+MIT License © 2026
