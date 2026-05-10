@@ -79,6 +79,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "cli"
+version = "0.0.1"
+dependencies = [
+ "classroom",
+]
+
+[[package]]
 name = "core-foundation-sys"
 version = "0.8.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -340,6 +347,13 @@ name = "typed-path"
 version = "0.12.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3015e6ce46d5ad8751e4a772543a30c7511468070e98e64e20165f8f81155b64"
+
+[[package]]
+name = "ui"
+version = "0.0.1"
+dependencies = [
+ "classroom",
+]
 
 [[package]]
 name = "unicode-ident"
